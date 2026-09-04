@@ -1,0 +1,11 @@
+[font]
+# Размер шрифта (начальный масштаб)
+size = 14.0
+
+[font.normal]
+family = "monospace"
+style = "Regular"
+
+[window]
+# Добавим немного отступов от краев, чтобы текст не прилипал
+padding = { x = 10, y = 10 }

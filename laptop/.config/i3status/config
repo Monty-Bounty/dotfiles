@@ -1,0 +1,79 @@
+###############################################################################
+# ceerious i3 status config
+# see "man i3status" for documentation.
+#
+# It is important that this file is edited as UTF-8.
+# The following line should contain a sharp s:
+# ß
+# If the above line is not correctly displayed, fix your editor first!
+###############################################################################
+
+# мой конфиг
+
+general {
+    interval 		= 1
+    colors 			= true
+    color_good      = '#88b090'
+    color_degraded  = '#ccdc90'
+    color_bad       = '#e89393'
+}
+
+order += "volume master"	
+order += "wireless wlp3s0"
+order += "disk /"
+order += "cpu_usage 0"
+order += "load"
+order += "memory"
+order += "battery 0"
+order += "tztime local"
+
+wireless wlp3s0 {
+    format_up = "%quality at %essid %ip"
+    format_down = ""
+}
+
+memory {
+  memory_used_method = classical
+  format="MEM: %used/%total"
+}
+
+battery 0 {
+    format = "%status %percentage %remaining"
+    format_down = ""
+    last_full_capacity = true
+    integer_battery_capacity = true
+    low_threshold = 20
+    threshold_type = percentage
+    hide_seconds = true
+    status_chr = " ⚡"
+    status_bat = " 🔋"
+    status_unk = "?"
+    status_full = "FULL"
+}
+
+tztime local {
+        format = "%d-%m-%Y %H:%M:%S"
+}
+
+load {
+    format = "load %1min"
+}
+
+cpu_usage {
+    format = "CPU %usage"
+}
+
+disk "/" {
+	format = "/ %avail"
+	prefix_type	= custom
+	low_threshold = 20
+	threshold_type = percentage_avail
+}
+
+volume master {
+    format = " ♪  %volume"
+    format_muted = " ♪ muted %volume"
+    device = "default"
+    mixer = "Master"
+    mixer_idx = 0
+}

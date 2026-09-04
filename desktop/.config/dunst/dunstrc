@@ -1,0 +1,43 @@
+[global]
+    ### Шрифт и оформление
+    font = monospace 14
+    allow_markup = yes
+    format = "<b>%s</b>\n%b"
+    
+    ### Геометрия
+    width = 300
+    height = 100
+    offset = 20x50
+    origin = top-right
+    padding = 10
+    horizontal_padding = 10
+    frame_width = 2
+    
+    ### Скругления (как в твоем picom)
+    corner_radius = 10
+    
+    ### Цвета и прозрачность (из твоего Polybar)
+    separator_color = frame
+    sort = yes
+    idle_threshold = 120
+    
+[urgency_low]
+    # Фон как в баре, текст светлый
+    background = "#282A2E"
+    foreground = "#C5C8C6"
+    frame_color = "#373B41"
+    timeout = 5
+
+[urgency_normal]
+    # Основной цвет (Primary) для рамки
+    background = "#282A2E"
+    foreground = "#C5C8C6"
+    frame_color = "#F0C674"
+    timeout = 10
+
+[urgency_critical]
+    # Цвет Alert для важных уведомлений
+    background = "#282A2E"
+    foreground = "#C5C8C6"
+    frame_color = "#A54242"
+    timeout = 0

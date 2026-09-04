@@ -1,0 +1,15 @@
+cat <<'EOF' > ~/dotfiles-staging/packages.txt
+# Основные пакеты (APT / Linux Mint / Ubuntu)
+i3 picom polybar feh rofi alacritty cava htop dunst micro mpv xsettingsd
+
+# CLI-утилиты для дашборда (установка вручную/бинарники):
+# - tty-clock: sudo apt install tty-clock
+# - lf: https://github.com/gokcehan/lf/releases
+# - unimatrix: https://github.com/will8211/unimatrix
+# - yt-dlp: https://github.com/yt-dlp/yt-dlp
+
+# Внешний вид:
+# - Курсор: Bibata-Modern-Classic
+# - Тема GTK: Mint-Y-Dark-Purple (предустановлена в Linux Mint)
+# - Шрифты: JetBrainsMono Nerd Font (или любой Nerd Font с иконками для Polybar)
+EOF
