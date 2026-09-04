@@ -1,17 +1,17 @@
 # Minimal & Aesthetic i3wm Dotfiles
 
 <p align="center">
-  <img src="assets/d1.jpg" width="48%" />
-  <img src="assets/d2.jpg" width="48%" />
-  <img src="assets/d3.jpg" width="48%" />
-  <img src="assets/d4.jpg" width="48%" />
+  <img src="assets/d1.png" width="48%" />
+  <img src="assets/d2.png" width="48%" />
+  <img src="assets/d3.png" width="48%" />
+  <img src="assets/d4.png" width="48%" />
 </p>
 
 <p align="center">
-  <img src="assets/l1.jpg" width="48%" />
-  <img src="assets/l2.jpg" width="48%" />
-  <img src="assets/l3.jpg" width="48%" />
-  <img src="assets/l4.jpg" width="48%" />
+  <img src="assets/l1.png" width="48%" />
+  <img src="assets/l2.png" width="48%" />
+  <img src="assets/l3.png" width="48%" />
+  <img src="assets/l4.png" width="48%" />
 </p>
 
 * **Desktop:** Soft purple-blue aesthetic with rounded corners via Picom, a custom Polybar, and an automated multi-tile dashboard.
