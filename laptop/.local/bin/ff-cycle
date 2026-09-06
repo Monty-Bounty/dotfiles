@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+ARTS_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/fastfetch/arts"
+STATE_FILE="${XDG_STATE_HOME:-$HOME/.local/state}/fastfetch_logo_idx"
+
+mkdir -p "$(dirname "$STATE_FILE")"
+
+# Ищем файлы строго внутри подкаталога arts
+shopt -s nullglob
+logos=("$ARTS_DIR"/*.txt)
+shopt -u nullglob
+
+# Добавляем стандартный debian
+# logos+=("debian")
+
+total=${#logos[@]}
+if [[ $total -eq 0 ]]; then
+    exec /usr/bin/fastfetch "$@"
+fi
+
+idx=0
+if [[ -f "$STATE_FILE" ]]; then
+    saved_idx=$(<"$STATE_FILE")
+    if [[ "$saved_idx" =~ ^[0-9]+$ ]]; then
+        idx=$saved_idx
+    fi
+fi
+
+idx=$(( idx % total ))
+selected="${logos[$idx]}"
+
+echo "$(( (idx + 1) % total ))" > "$STATE_FILE"
+
+# if [[ "$selected" == "debian" ]]; then
+#     exec /usr/bin/fastfetch --logo debian --logo-type builtin "$@"
+# else
+#     exec /usr/bin/fastfetch --logo "$selected" --logo-type file "$@"
+# fi
+exec /usr/bin/fastfetch --logo "$selected" --logo-type file "$@"

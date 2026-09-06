@@ -1,0 +1,10 @@
+# ~/.config/lf/lfrc
+
+# --- Базовые настройки ---
+set wrapscan
+set info "size"
+
+
+# --- Остальные кастомные бинды ---
+map e $micro $f
+map . set hidden!

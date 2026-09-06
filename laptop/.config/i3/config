@@ -30,17 +30,6 @@ exec --no-startup-id dex --autostart --environment i3
 # screen before suspend. Use loginctl lock-session to lock your screen.
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 
-# NetworkManager is the most popular way to manage wireless networks on Linux,
-# and nm-applet is a desktop environment-independent system tray GUI for it.
-exec --no-startup-id nm-applet
-
-# Use pactl to adjust volume in PulseAudio.
-#set $refresh_i3status killall -SIGUSR1 i3status
-#bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
-#bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
-#bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
-#bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
-
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
@@ -56,11 +45,6 @@ bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
 bindsym $mod+d exec --no-startup-id dmenu_run
-# A more modern dmenu replacement is rofi:
-# bindcode $mod+40 exec "rofi -modi drun,run -show drun"
-# There also is i3-dmenu-desktop which only displays applications shipping a
-# .desktop file. It is a wrapper around dmenu, so you need that installed.
-# bindcode $mod+40 exec --no-startup-id i3-dmenu-desktop
 
 # change focus
 bindsym $mod+j focus left
@@ -149,8 +133,6 @@ bindsym $mod+Shift+8 move container to workspace number $ws8
 bindsym $mod+Shift+9 move container to workspace number $ws9
 bindsym $mod+Shift+0 move container to workspace number $ws10
 
-assign [class="v2ray"] $ws10
-
 # reload the configuration file
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
@@ -200,22 +182,23 @@ bar {
 # -------------------castom-----------------
 exec --no-startup-id feh --bg-scale ~/Pictures/aot-logo.png
 
-bindsym $mod+b exec brave-origin-nightly
+# Запуск демона уведомлений
+exec --no-startup-id dunst
+
+# Браузер
+bindsym $mod+b exec brave-origin
+
 bindsym $mod+Shift+p exec "systemctl poweroff"
 bindsym $mod+Shift+o exec "systemctl reboot"
 
-# Включаем клик по касанию (tap-to-click)
-exec_always --no-startup-id xinput set-prop "Synaptics TM3336-005" "libinput Tapping Enabled" 1
-# Включаем естественную (инвертированную) прокрутку
-exec_always --no-startup-id xinput set-prop "Synaptics TM3336-005" "libinput Natural Scrolling Enabled" 1
+# Яркость (БЕЗ sudo, требует членства в группе video)
+bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 5%-
+bindsym XF86MonBrightnessUp   exec --no-startup-id brightnessctl set 5%+
 
-# Яркость (работает напрямую с F11/F12)
-bindsym XF86MonBrightnessDown exec sudo brightnessctl set 5%-
-bindsym XF86MonBrightnessUp   exec sudo brightnessctl set 5%+
-
-bindsym XF86AudioMute        exec pamixer -t
-bindsym XF86AudioLowerVolume exec pamixer -d 5
-bindsym XF86AudioRaiseVolume exec pamixer -i 5
+# Звук (через pamixer)
+bindsym XF86AudioMute        exec --no-startup-id pamixer -t
+bindsym XF86AudioLowerVolume exec --no-startup-id pamixer -d 5
+bindsym XF86AudioRaiseVolume exec --no-startup-id pamixer -i 5
 
 bindsym Print exec --no-startup-id flameshot gui
 
@@ -223,36 +206,42 @@ bindsym $mod+e exec "alacritty --class lf-floating -e lf"
 for_window [class="^lf-floating$"] floating enable, resize set 800 600, move position center
 
 for_window [class="AmneziaVPN"] floating enable, resize set 400 600, move position center
-for_window [class="brave-origin-nightly" title="Bitwarden"] floating enable, move position center, resize set 400 600, move position center
+for_window [class="(?i)brave-origin" title="Bitwarden"] floating enable, move position center, resize set 400 600
+for_window [class="(?i)brave-origin" window_role="pop-up"] floating enable, resize set 400 600, move position center
 
-#sudo systemctl start bluetooth.service 
-exec --no-startup-id blueman-applet
-
+# screensaver off
 exec_always --no-startup-id xset s off -dpms
 
 # Цветовая схема для окон
-# класс            рамка    фон      текст    индикатор декор. рамка
 client.focused    #555555  #555555  #ffffff  #2e9ef4   #555555
-# Убирает заголовок и оставляет тонкую рамку в 1px (рекомендуется)
 default_border pixel 2
 default_floating_border pixel 1
 
 assign [class="^TelegramDesktop$"] $ws2
 for_window [class="^TelegramDesktop$"] floating enable, resize set 718 747, move position 324px 0px
 
-# Brave (только основное окно браузера, не затрагивая YouTube App) -> Рабочий стол 1
-for_window [class="^Brave-origin-nightly$" instance="^brave-origin-nightly$"] move container to workspace number $ws1
+# Основное окно Brave — отправляем на ws1 (только полноценный браузер)
+for_window [class="(?i)brave-origin" instance="^brave-origin$" window_role="browser"] move container to workspace number $ws1
 
-# Музыка
-bindsym F4 workspace number $ws10; exec --no-startup-id brave-origin-nightly --app="https://www.youtube.com/watch?v=JIoBCOLxN_g&list=PLORqITDbBb_za3nnF24dA4qGfVpOc3-k3"
-for_window [instance="www.youtube.com__watch"] floating enable, resize set 400 600, move position center
+# Музыкальное окно -> плавающее, по центру и строго на 10-й рабочий стол
+for_window [instance="^www\.youtube\.com__watch$"] floating enable, resize set 400 600, move position center, move container to workspace number $ws10
 
+# Запуск по F4
+bindsym F4 workspace number $ws10; exec --no-startup-id brave-origin --app="https://www.youtube.com/watch?v=JIoBCOLxN_g&list=PLORqITDbBb_za3nnF24dA4qGfVpOc3-k3"
 
-exec --no-startup-id brave-origin-nightly
+exec --no-startup-id brave-origin
 exec --no-startup-id tg
 
-bindsym F6 exec --no-startup-id ~/.config/i3/launch_dashboard.sh
+bindsym F6 exec --no-startup-id ~/.local/bin/launch_dashboard.sh
 
-# Запуск монитора заряда батареи
-exec_always --no-startup-id ~/.local/bin/battery-alert.sh
+# Запуск монитора заряда батареи (если файл скопирован)
+exec --no-startup-id ~/.local/bin/battery-alert.sh
+
+# Раскладка клавиатуры
+exec_always --no-startup-id setxkbmap -layout "us,ru" -option "grp:alt_shift_toggle"
+
+# Запрос root
+exec --no-startup-id lxpolkit
+
+exec_always --no-startup-id xsettingsd
 #------------------------------------------
