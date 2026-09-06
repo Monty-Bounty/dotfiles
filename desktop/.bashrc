@@ -130,4 +130,6 @@ export PATH="$HOME/.local/bin:$PATH"
 
 
 # Added by Antigravity CLI installer
-export PATH="$HOME/.local/bin:$PATH"
+export PATH="/home/monty/.local/bin:$PATH"
+
+PS1='\[\033[01;32m\]~❯ \[\033[01;34m\]\w \[\033[00;00m\]'

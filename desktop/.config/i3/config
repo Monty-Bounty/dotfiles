@@ -230,7 +230,7 @@ gaps inner 10
 gaps outer 5
 
 # Запуск композитора (прозрачность)
-exec_always --no-startup-id killall -q picom; sleep 1; picom --backend glx &
+exec_always --no-startup-id killall -q picom; sleep 1 &
 
 # Замена dmenu на rofi (выглядит как Spotlight в macOS)
 bindsym $mod+d exec "rofi -show drun -theme Monokai"
@@ -244,8 +244,7 @@ exec_always --no-startup-id sh -c "sleep 1.5 && setxkbmap -model pc105 -layout u
 
 for_window [class=".*"] border pixel 0
 
-exec_always --no-startup-id flatpak run org.openrgb.OpenRGB --profile "prof1" --no-gui
-
+exec_always --no-startup-id bash -c "sleep 4 && flatpak run org.openrgb.OpenRGB --profile 'prof1' --no-gui > /tmp/openrgb-boot.log 2>&1"
 exec --no-startup-id dunst &
 
 # Разрешить ВСЕМ окнам слать сигналы срочности (Urgent)
@@ -286,3 +285,7 @@ for_window [class="^Brave-origin-nightly$" instance="^brave-origin-nightly$"] mo
 
 exec --no-startup-id brave-origin-nightly
 exec --no-startup-id tg
+
+# Эмуляция Ctrl + / Ctrl - по Ctrl + WheelUp / WheelDown
+bindsym --whole-window Control+button4 exec --no-startup-id xdotool key --clearmodifiers ctrl+KP_Add
+bindsym --whole-window Control+button5 exec --no-startup-id xdotool key --clearmodifiers ctrl+KP_Subtract

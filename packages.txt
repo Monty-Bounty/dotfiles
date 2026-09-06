@@ -1,15 +1,17 @@
-cat <<'EOF' > ~/dotfiles-staging/packages.txt
-# main stuff
-i3 picom polybar feh rofi alacritty cava htop dunst micro mpv xsettingsd
+# Базовые пакеты оконного менеджера и окружения (Mint & Debian)
+i3 i3status picom polybar feh rofi alacritty cava htop dunst micro mpv xsettingsd
 
-# CLI for dashboard script
+# Дополнительные зависимости под Debian (ноутбук)
+libnotify-bin acpi upower gnome-keyring papirus-icon-theme fastfetch
+
+# Вспомогательный софт и скрипты
 # - tty-clock: sudo apt install tty-clock
-# - lf: https://github.com/gokcehan/lf/releases
+# - lf: https://github.com/gokcehan/lf/releases (в ~/.local/bin)
 # - unimatrix: https://github.com/will8211/unimatrix
 # - yt-dlp: https://github.com/yt-dlp/yt-dlp
 
-# Внешний вид:
+# Оформление
 # - Курсор: Bibata-Modern-Classic
-# - GTK Theme: Mint-Y-Dark-Purple (one of Linux Mint)
-# - Font: JetBrainsMono Nerd Font
-EOF
+# - Тема ПК: Mint-Y-Dark-Purple
+# - Тема Ноутбук: Adwaita-dark / Иконки Papirus-Dark
+# - Шрифт: JetBrainsMono Nerd Font
