@@ -8,3 +8,15 @@ set info "size"
 # --- Остальные кастомные бинды ---
 map e $micro $f
 map . set hidden!
+
+cmd open ${{
+    case "$f" in
+        *.pdf) 
+            brave-origin "$f" > /dev/null 2>&1 & 
+            ;;
+        *) 
+            # Фолбэк для всех остальных файлов
+            xdg-open "$f" > /dev/null 2>&1 & 
+            ;;
+    esac
+}}

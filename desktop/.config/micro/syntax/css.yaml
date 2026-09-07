@@ -1,0 +1,61 @@
+filetype: css
+
+detect:
+    filename: "\\.css$"
+
+rules:
+    # 1. Комментарии /* ... */
+    - comment:
+        start: "/\\*"
+        end: "\\*/"
+        rules: []
+
+    # 2. Строки в селекторах
+    - constant.string: "\"[^\"]*\"|'[^']*'"
+
+    # 3. Атрибуты в квадратных скобках: [badge-text="live"], [is_vod]
+    # Скобки нейтральные, имя атрибута зеленое, значение желтое
+    - symbol.brackets:
+        start: "\\["
+        end: "\\]"
+        rules:
+            - constant.string: "\"[^\"]*\"|'[^']*'"
+            - symbol.operator: "[~^$*|]?="
+            - identifier: "[a-zA-Z0-9_-]+"
+
+    # 4. ID-селекторы (#logo) и классы (.btn) — зеленый
+    - identifier: "#[a-zA-Z0-9_-]+"
+    - identifier: "\\.[a-zA-Z0-9_-]+"
+
+    # 5. Псевдоклассы (:hover, ::after) — зеленый
+    - identifier: "::?[a-zA-Z0-9_-]+"
+
+    # 6. Директивы (@media, @import) — розовый
+    - statement: "@[a-zA-Z0-9_-]+"
+
+    # 7. HTML-теги и кастомные элементы (html, ytd-grid-video-renderer) — розовый
+    - statement: "\\b[a-zA-Z][a-zA-Z0-9_-]*\\b"
+
+    # 8. Тело правил внутри фигурных скобок { ... }
+    - symbol.brackets:
+        start: "\\{"
+        end: "\\}"
+        rules:
+            - comment:
+                start: "/\\*"
+                end: "\\*/"
+                rules: []
+
+            - constant.string: "\"[^\"]*\"|'[^']*'"
+
+            # !important выделяется розовым
+            - statement: "!\\s*important\\b"
+
+            # Цвета в HEX (#ffffff, #282a2e)
+            - constant: "#[0-9a-fA-F]{3,8}\\b"
+
+            # Числа и единицы измерения (48%, 10px, 0)
+            - constant.number: "\\b[0-9]+(?:\\.[0-9]+)?(px|pt|em|rem|%|vh|vw|s|ms|deg|fr)?\\b"
+
+            # Имена свойств (display, pointer-events) и ключевые значения (none, block) — бирюзовый
+            - type: "(?:\\b|--|-)[a-zA-Z0-9_-]+\\b"

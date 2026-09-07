@@ -1,0 +1,29 @@
+filetype: yaml
+
+detect:
+    filename: "\\.(ya?ml)$"
+
+rules:
+    # 1. Комментарии
+    - comment:
+        start: "#"
+        end: "$"
+        rules: []
+
+    # 2. Ключи параметров вместе с двоеточием (без lookahead)
+    - statement: "(?:^|\\s*)[a-zA-Z0-9_.-]+:"
+
+    # 3. Булевы типы и null (фиолетовый)
+    - constant.bool: "\\b(true|false|yes|no|null|on|off)\\b"
+
+    # 4. Числа (фиолетовый)
+    - constant.number: "\\b[0-9]+(?:\\.[0-9]+)?\\b"
+
+    # 5. Строки в кавычках (желтый)
+    - constant.string: "\"[^\"]*\"|'[^']*'"
+
+    # 6. Якоря и ссылки (&anchor, *link) — оранжевый
+    - identifier.var: "(&|\\*)[a-zA-Z0-9_-]+"
+
+    # 7. Маркеры списков и разделители блоков (---)
+    - symbol.operator: "(?:^|\\s+)-(?:\\s+|$)|---"

@@ -1,0 +1,47 @@
+filetype: i3
+
+detect:
+    filename: "(?:^|/)(?:i3/config|\\.i3/config|i3|config|i3\\.conf)$"
+    header: "(?i)(?:^i3|^#.*i3-config-wizard|^#.*i3\\s*config)"
+
+rules:
+    # 1. Комментарии (линейный regex без пустых регионов)
+    - comment: "#.*$"
+
+    # 2. Директивы и команды i3 (розовый в Monokai)
+    - statement: "\\b(set|bindsym|bindcode|exec|exec_always|for_window|floating_modifier|tiling_drag|font|gaps|focus_on_window_activation|mode|bar|colors|output|workspace|reload|restart|exit|kill|fullscreen|split|layout|floating|focus|default_orientation)\\b"
+
+    # 3. Переменные ($mod, $ws1, $refresh_i3status) — оранжевый
+    - identifier.var: "\\$[A-Za-z0-9_-]+"
+
+    # 4. Флаги команд (--no-startup-id, --release) — бирюзовый
+    - preproc: "--[a-zA-Z0-9_-]+"
+
+    # 5. Служебные селекторы
+    - type: "\\b(client\\.focused|client\\.unfocused|client\\.focused_inactive|client\\.urgent|client\\.placeholder|number)\\b"
+
+    # 6. Аргументы команд (зеленый)
+    - identifier: "\\b(left|down|up|right|px|ppt|shrink|grow|width|height|toggle|enable|disable|center|border|pixel|none|normal|horizontal|vertical|stacking|tabbed|splitv|splith)\\b"
+
+    # 7. Числа и размеры
+    - constant.number: "\\b[0-9]+(?:px|ppt)?\\b"
+
+    # 8. Строки в двойных кавычках (с интерполяцией переменных)
+    - constant.string:
+        start: "\""
+        end: "\""
+        skip: "\\\\."
+        rules:
+            - constant.specialChar: "\\\\."
+            - identifier.var: "\\$[A-Za-z0-9_-]+"
+
+    # 9. Строки в одинарных кавычках
+    - constant.string:
+        start: "'"
+        end: "'"
+        skip: "\\\\."
+        rules:
+            - constant.specialChar: "\\\\."
+
+    # 10. Операторы и разделители (+, ,, ;, &)
+    - symbol.operator: "[,+;&]"

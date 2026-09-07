@@ -1,0 +1,43 @@
+# bat-simple.micro
+# Базовый текст и комментарии
+color-link default ""
+color-link comment "#75715E"
+
+# Константы, строки и ссылки
+color-link constant "#AE81FF"
+color-link constant.string "#E6DB74"
+color-link constant.string.url "underline #E6DB74"
+color-link constant.number "#AE81FF"
+
+# Идентификаторы и ссылки
+color-link identifier "#A6E22E"
+color-link identifier.class "#66D9EF"
+color-link identifier.var "bold #FD971F"
+
+# Заголовки Markdown (теплый оранжевый Monokai)
+color-link preproc "bold #FD971F"
+
+# Ключевые слова, жирный шрифт и инлайн-код
+color-link statement "bold #F92672"
+color-link symbol.operator "#F92672"
+color-link symbol.tag "#F92672"
+color-link type "#66D9EF"
+
+# Стили оформления
+color-link italic "italic"
+color-link bold "bold"
+
+# Интерфейс без сплошных заливок
+color-link cursor-line ""
+color-link current-line-number "bold #F0C674"
+color-link line-number "#707880"
+color-link divider "#282A2E"
+color-link statusline "#C5C8C6"
+color-link tabbar "#707880"
+
+# Служебные маркеры
+color-link diff-added "#A6E22E"
+color-link diff-modified "#E6DB74"
+color-link diff-deleted "#F92672"
+color-link gutter-error "#A54242"
+color-link gutter-warning "#F0C674"

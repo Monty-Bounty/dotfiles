@@ -12,7 +12,7 @@ map . set hidden!
 cmd open ${{
     case "$f" in
         *.pdf) 
-            brave-origin-nightly "$f" > /dev/null 2>&1 & 
+            brave-origin "$f" > /dev/null 2>&1 & 
             ;;
         *) 
             # Фолбэк для всех остальных файлов

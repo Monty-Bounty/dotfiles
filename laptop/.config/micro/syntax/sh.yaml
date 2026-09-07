@@ -1,0 +1,47 @@
+filetype: sh
+
+detect:
+    filename: "(?:^|/)(?:\\.(?:bashrc|bash_profile|zshrc|profile)|[^/]+\\.(?:sh|bash|zsh))$"
+    header: "^#!.*/(ba|z)?sh"
+
+rules:
+    # 1. Комментарии
+    - comment:
+        start: "#"
+        end: "$"
+        rules: []
+
+    # 2. Строки в двойных кавычках (с поддержкой интерполяции переменных)
+    - constant.string:
+        start: "\""
+        end: "\""
+        skip: "\\\\."
+        rules:
+            - identifier.var: "\\$[A-Za-z0-9_]+"
+            - identifier.var: "\\$\\{[^}]+\\}"
+            - constant.specialChar: "\\\\."
+
+    # 3. Строки в одинарных кавычках (без интерполяции)
+    - constant.string:
+        start: "'"
+        end: "'"
+        skip: "\\\\."
+        rules: []
+
+    # 4. Управляющие конструкции (розовый в Monokai)
+    - statement: "\\b(if|then|else|elif|fi|case|esac|for|select|while|until|do|done|in|function|return|exit)\\b"
+
+    # 5. Встроенные команды оболочки (бирюзовый)
+    - type: "\\b(echo|printf|cd|pwd|export|source|alias|read|local|declare|typeset|set|unset|shift|eval|exec|trap)\\b"
+
+    # 6. Переменные ($VAR, ${VAR}, $1, $?) — оранжевый
+    - identifier.var: "\\$[A-Za-z0-9_]+"
+    - identifier.var: "\\$\\{[^}]+\\}"
+    - identifier.var: "\\$[@*#?$!0-9-]"
+
+    # 7. Флаги утилит (-f, --help) — бирюзовый
+    - preproc: "(?:^|\\s)-[a-zA-Z0-9_-]+"
+    - preproc: "(?:^|\\s)--[a-zA-Z0-9_-]+"
+
+    # 8. Операторы, перенаправления и пайпы
+    - symbol.operator: "(\\|{1,2}|&&|;|;;|&|>|>>|<|<<)"

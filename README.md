@@ -1,17 +1,17 @@
 # Minimal & Aesthetic i3wm Dotfiles
 
 <p align="center">
-  <img src="assets/d1.png" width="48%" />
-  <img src="assets/d2.png" width="48%" />
-  <img src="assets/d3.png" width="48%" />
+  <img src="assets/d1.png" width="32%" />
+  <img src="assets/d2.png" width="32%" />
+  <img src="assets/d3.png" width="32%" />
   <img src="assets/d4.png" width="48%" />
   <img src="assets/d5.png" width="48%" />
 </p>
 
 <p align="center">
-  <img src="assets/l1.png" width="48%" />
-  <img src="assets/l2.png" width="48%" />
-  <img src="assets/l3.png" width="48%" />
+  <img src="assets/l1.png" width="32%" />
+  <img src="assets/l2.png" width="32%" />
+  <img src="assets/l3.png" width="32%" />
   <img src="assets/l4.png" width="48%" />
   <img src="assets/l5.png" width="48%" />
 </p>
@@ -30,6 +30,7 @@
 | **Status Bar** | Polybar | i3bar + i3status |
 | **Compositor** | Picom (`glx` backend, 10px corners) | None |
 | **Terminal** | Alacritty | Alacritty |
+| **File Manager** | lf | lf |
 | **Font** | JetBrainsMono Nerd Font | JetBrainsMono Nerd Font |
 | **GTK Theme** | Mint-Y-Dark-Purple | Adwaita-dark (Papirus-Dark icons) |
 | **Cursor** | Bibata-Modern-Classic | Bibata-Modern-Classic |
@@ -38,44 +39,62 @@
 
 ## Installation
 
-### 1. Base Dependencies
+### 1. Core Packages (Both Devices)
 
-Install the utilities via APT:
+Essential utilities shared across both machines:
 
 ```bash
 sudo apt update
-sudo apt install i3 picom polybar feh rofi alacritty cava htop dunst micro mpv xsettingsd tty-clock
+sudo apt install i3 dunst feh alacritty cava htop micro mpv xsettingsd lf tty-clock fastfetch
 ```
 
-Additional tools:
-* **lf:** Download from [lf releases](https://github.com/gokcehan/lf/releases) to `~/.local/bin/`
-* **fastfetch:** CLI system information tool
-* **unimatrix:** Matrix script in `$PATH`
+### 2. Device-Specific Packages
+
+#### Desktop Setup (Linux Mint)
+
+Compositor, custom status bar, app launcher:
+
+```Bash
+sudo apt install picom polybar rofi 
+```
+
+#### Laptop Setup (Debian)
+
+Stock status bar and utilities:
+
+```Bash
+sudo apt install i3status gnome-keyring papirus-icon-theme
+```
+
+#### 3. Additional Scripts & Tools
+* **unimatrix**: Download the script from the unimatrix repository, make it executable (`chmod +x`), and move it to `~/.local/bin/.` Or use **cmatrix**!
+
+* **yt-dlp**: Install the standalone binary following the yt-dlp installation guide.
 
 ---
 
 ## Deploying via GNU Stow
+#### Desktop Setup:
 
-**Desktop Setup:**
-
-```bash
+```Bash
 cd ~/dotfiles
 stow -t ~ desktop
 ```
 
-**Laptop Setup:**
+#### Laptop Setup:
 
-```bash
+```Bash
 cd ~/dotfiles
 stow -t ~ laptop
 ```
 
-*(Alternatively, manually copy the contents of `desktop/.config` or `laptop/.config` into your `~/.config/` directory).*
+*(Alternatively, copy the contents of `desktop/` or `laptop/` directly into your home directory).*
 
 ---
 
-## Configuration & Hardware Adjustments
-
+### Configuration & Hardware Adjustments
 * **Laptop Network Interface:** Open `~/.config/i3status/config` and replace `wlp3s0` with your machine's wireless interface identifier (run `ip link` to find yours).
-* **Wallpapers:** Set directly inside `~/.config/i3/config` via `exec_always feh --bg-fill ~/.config/wallpapers/<image-name>` (all wallpaper assets are bundled in `~/.config/wallpapers/`).* **Workspace Dashboard (Desktop):** The included script `~/.config/i3/launch_dashboard.sh` automatically splits and spawns a pre-arranged terminal grid (`unimatrix`, `lf`, `htop`, `tty-clock`, and `cava`) on workspace 10.
 
+* **Wallpapers:** Set directly inside `~/.config/i3/config` via `exec_always feh --bg-fill ~/.config/wallpapers/<image-name>`
+
+* **Workspace Dashboard:** The included script `~/.config/i3/launch_dashboard.sh` automatically splits and spawns a pre-arranged terminal grid (`unimatrix` or `cmatrix` (configure it), `lf`, `htop`, `tty-clock`, and `cava`) on workspace 10.

@@ -1,0 +1,36 @@
+filetype: conf
+
+detect:
+    filename: "(?:^|/)(?:picom\\.conf|compton\\.conf|.*\\.conf)$"
+    header: "(?i)^#.*(?:picom|compton|config)"
+
+rules:
+    # 1. Комментарии (# ..., // ..., /* ... */)
+    - comment: "#.*$"
+    - comment: "//.*$"
+    - comment:
+        start: "/\\*"
+        end: "\\*/"
+        rules: []
+
+    # 2. Строки в двойных и одинарных кавычках (желтый)
+    - constant.string: "\"[^\"]*\"|'[^']*'"
+
+    # 3. Булевы типы (фиолетовый в Monokai)
+    - constant.bool: "\\b(true|false|yes|no|on|off)\\b"
+
+    # 4. Числа, включая десятичные дроби (0.97, 0.04, 10, 5) — фиолетовый
+    - constant.number: "\\b-?[0-9]+(?:\\.[0-9]+)?\\b"
+
+    # 5. Секции в квадратных скобках [global] (бирюзовый)
+    - type: "^\\[[^\\]]+\\]$"
+
+    # 6. Ключи и параметры перед знаком '=' (розовый)
+    - statement: "\\b[a-zA-Z0-9._-]+\\s*="
+
+    # 7. Имена вложенных объектов (wintypes:)
+    - statement: "\\b[a-zA-Z0-9._-]+:"
+
+    # 8. Структурные скобки и разделители (; и ,)
+    - symbol.brackets: "[\\[\\]{}]"
+    - symbol.operator: "[;,]"
