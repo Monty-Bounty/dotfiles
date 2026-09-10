@@ -6,16 +6,28 @@ set info "size"
 
 
 # --- Остальные кастомные бинды ---
+
 map e $micro $f
 map . set hidden!
 
 cmd open ${{
-    case "$f" in
+    # Приводим имя файла к нижнему регистру для нечувствительности к регистру (PDF, Pdf -> pdf)
+    file_lower="$(printf '%s' "$f" | tr '[:upper:]' '[:lower:]')"
+
+    case "$file_lower" in
         *.pdf) 
-            brave-origin "$f" > /dev/null 2>&1 & 
+            brave-origin-nightly "$f" > /dev/null 2>&1 & 
+            ;;
+        *.txt|*.md|*.json|*.yaml|*.yml|*.toml|*.ini|*.conf|*.cfg|*.sh|*.bash|*.py|*.c|*.cpp|*.h|*.rs|*.go|*.js|*.ts|*.html|*.css|*.log)
+            micro "$f"
+            ;;
+        *.mp3|*.flac|*.wav|*.ogg|*.m4a|*.opus|*.aac|*.mp4|*.mkv|*.webm|*.avi|*.mov)
+            mpv "$f" > /dev/null 2>&1 &
+            ;;
+        *.jpg|*.jpeg|*.png|*.gif|*.webp|*.bmp|*.ico|*.tiff|*.avif|*.svg)
+            mpv --image-display-duration=inf --loop-file=inf "$f" > /dev/null 2>&1 &
             ;;
         *) 
-            # Фолбэк для всех остальных файлов
             xdg-open "$f" > /dev/null 2>&1 & 
             ;;
     esac

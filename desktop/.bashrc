@@ -133,3 +133,5 @@ export PATH="$HOME/.local/bin:$PATH"
 export PATH="/home/monty/.local/bin:$PATH"
 
 PS1='\[\033[01;32m\]~❯ \[\033[01;34m\]\w \[\033[00;00m\]'
+
+alias code="exec ~/.local/bin/coding_layout.sh"

@@ -243,7 +243,9 @@ exec_always --no-startup-id ~/.config/polybar/launch.sh &
 # exec_always --no-startup-id setxkbmap -model pc105 -layout us,ru -option -option grp:alt_shift_toggle
 exec_always --no-startup-id sh -c "sleep 1.5 && setxkbmap -model pc105 -layout us,ru -option '' -option grp:alt_shift_toggle"
 
-for_window [class=".*"] border pixel 0
+default_border pixel 0
+default_floating_border pixel 0
+for_window [class="^mpv$"] border none
 
 exec_always --no-startup-id bash -c "sleep 4 && flatpak run org.openrgb.OpenRGB --profile 'prof1' --no-gui > /tmp/openrgb-boot.log 2>&1"
 exec --no-startup-id dunst &
