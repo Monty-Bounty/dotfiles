@@ -123,3 +123,5 @@ PS1='\[\033[01;32m\]~❯ \[\033[00;34m\]\w \[\033[00m\]'
 alias fastfetch="ff-cycle"
 # Пользовательские скрипты
 export PATH="$HOME/.local/bin:$PATH"
+
+alias code="exec ~/.local/bin/coding_layout.sh"
