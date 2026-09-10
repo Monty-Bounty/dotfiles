@@ -24,6 +24,9 @@ cmd open ${{
         *.mp3|*.flac|*.wav|*.ogg|*.m4a|*.opus|*.aac|*.mp4|*.mkv|*.webm|*.avi|*.mov)
             mpv "$f" > /dev/null 2>&1 &
             ;;
+        *.jpg|*.jpeg|*.png|*.gif|*.webp|*.bmp|*.ico|*.tiff|*.avif|*.svg)
+            mpv --image-display-duration=inf --loop-file=inf "$f" > /dev/null 2>&1 &
+                    ;;
         *) 
             xdg-open "$f" > /dev/null 2>&1 & 
             ;;

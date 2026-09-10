@@ -1,9 +1,5 @@
 #!/usr/bin/env bash
 
-# a coding layout using 3 windows
-# just write "code {path/to/file/or/directory}"
-# and magic will happen on workspase 3
-
 TARGET_WS="3"
 
 if [ -z "$1" ]; then
