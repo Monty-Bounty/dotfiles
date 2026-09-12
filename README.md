@@ -45,7 +45,7 @@ Essential utilities shared across both machines:
 
 ```bash
 sudo apt update
-sudo apt install i3 dunst feh alacritty cava htop micro mpv xsettingsd lf tty-clock fastfetch
+sudo apt install i3 dunst feh alacritty cava htop micro mpv xsettingsd lf tty-clock fastfetch redshift
 ```
 
 ### 2. Device-Specific Packages
@@ -69,7 +69,7 @@ sudo apt install i3status gnome-keyring papirus-icon-theme
 #### 3. Additional Scripts & Tools
 * **unimatrix**: Download the script from the unimatrix repository, make it executable (`chmod +x`), and move it to `~/.local/bin/.` Or use **cmatrix**!
 
-* **yt-dlp**: Install the standalone binary following the yt-dlp installation guide.
+* **yt-dlp**: Installed the standalone binary in the `~/.local/bin/`.
 
 ---
 
@@ -97,4 +97,7 @@ stow -t ~ laptop
 
 * **Wallpapers:** Set directly inside `~/.config/i3/config` via `exec_always feh --bg-fill ~/.config/wallpapers/<image-name>`
 
-* **Workspace Dashboard:** The included script `~/.config/i3/launch_dashboard.sh` automatically splits and spawns a pre-arranged terminal grid (`unimatrix` or `cmatrix` (configure it), `lf`, `htop`, `tty-clock`, and `cava`) on workspace 10.
+* **Workspace Dashboard:** The included script `~/.local/bin/launch_dashboard.sh` automatically splits and spawns a pre-arranged terminal grid (`unimatrix` or `cmatrix` (configure it), `lf`, `htop`, `tty-clock`, and `cava`) on workspace 10.
+
+* **Coding layout:** The included script `~/.local/bin/coding_layout.sh` automatically splits and spawns a pre-arranged terminal grid (`micto` regular terminal and `lf` on workspace 3.
+

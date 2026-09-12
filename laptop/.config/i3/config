@@ -253,4 +253,6 @@ exec_always --no-startup-id setxkbmap -layout "us,ru" -option "grp:alt_shift_tog
 exec --no-startup-id lxpolkit
 
 exec_always --no-startup-id xsettingsd
+
+exec_always --no-startup-id ~/.local/bin/redshift-timer.sh
 #------------------------------------------

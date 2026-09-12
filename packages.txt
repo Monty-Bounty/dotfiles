@@ -1,12 +1,10 @@
 # Базовые пакеты оконного менеджера и окружения (Mint & Debian)
-i3 i3status picom polybar feh rofi alacritty cava htop dunst micro mpv xsettingsd
+i3 i3status picom polybar feh rofi alacritty cava htop dunst micro mpv xsettingsd fastfetch redshift lf tty-clock
 
 # Дополнительные зависимости под Debian (ноутбук)
-libnotify-bin acpi upower gnome-keyring papirus-icon-theme fastfetch
+libnotify-bin acpi upower gnome-keyring papirus-icon-theme 
 
 # Вспомогательный софт и скрипты
-# - tty-clock: sudo apt install tty-clock
-# - lf: https://github.com/gokcehan/lf/releases (в ~/.local/bin)
 # - unimatrix: https://github.com/will8211/unimatrix
 # - yt-dlp: https://github.com/yt-dlp/yt-dlp
 
